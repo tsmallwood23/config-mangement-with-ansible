@@ -1,0 +1,50 @@
+---
+- name: install node and npm
+  hosts: webservers
+  tasks:
+    - name: update apt cache
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+    - name: install node & npm
+      apt:
+        pkg:
+         - nodejs
+         - npm
+
+- name: create user for deploying and running node app
+  hosts: webservers
+  tasks:
+    - name: create linux user
+      user:
+        name: tanner-nodejs
+        comment: Tanner
+        group: admin
+      register: user_creation_results
+    - debug: msg={{user_creation_results}}
+
+
+- name: Deploy nodejs app
+  hosts: webservers
+  become: True
+  become_user: tanner-nodejs
+  tasks:
+    - name: unpack file
+      unarchive:
+        src: /home/tanner/module15-ansible/nodejs-app/simple-nodejs/nodejs-app-1.0.0.tgz
+        dest: /home/tanner-nodejs
+      register: unpack_results
+    - debug: msg={{unpack_results}}
+    - name: install dependencies
+      npm:
+        path: /home/tanner-nodejs/package
+    - name: start the app
+      command: node /home/tanner-nodejs/app/server
+      async: 1000
+      poll: 0
+    - name: Ensure app is running
+      shell: ps aux | grep node
+      register: app_status
+    - debug: msg={{app_status.stdout_lines}}
+
