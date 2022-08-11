@@ -1,12 +1,7 @@
-[webservers]
-64.227.100.161
 
-[webservers:vars]
-ansible_ssh_private_key_file=~/.ssh/id_rsa
-ansible_user=root
 
 [docker_server_aws]
-54.183.188.59
+54.183.236.37
 
 [docker_server_aws:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
