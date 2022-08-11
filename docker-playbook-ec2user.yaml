@@ -1,4 +1,18 @@
 ---
+- name: Check that ec2 server is ready
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: Ensure ssh port is open
+      wait_for:
+        port: 22
+        delay: 10
+        timeout: 300
+        search: OpenSSH
+        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname)}}'
+      vars:
+        ansible_connection: local
+
 - name: Install Docker and docker python module
   hosts: all
   become: yes
