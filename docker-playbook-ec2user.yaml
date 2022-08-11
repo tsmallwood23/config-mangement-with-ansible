@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and docker python module
-  hosts: docker_server_aws
+  hosts: all
   become: yes
   become_user: root
   tasks:
@@ -16,7 +16,7 @@
          - docker-compose
 
 - name: Install Docker-compose
-  hosts: docker_server_aws
+  hosts: all
   become: yes
   tasks:
     - name: download docker-compose binary
@@ -34,7 +34,7 @@
         state: started
 
 - name: add ec2-user to docker group
-  hosts: docker_server_aws
+  hosts: all
   become: yes
   tasks:
     - name: add ec2-user to docker group
@@ -46,7 +46,7 @@
       meta: reset_connection
 
 - name: Start docker containers
-  hosts: docker_server_aws
+  hosts: all
   vars_prompt:
     - name: docker_password
       prompt: Enter docker registry password
