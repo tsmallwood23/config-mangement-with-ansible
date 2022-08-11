@@ -1,17 +1,4 @@
 ---
-- name: Check that ec2 server is ready
-  hosts: all
-  gather_facts: False
-  tasks:
-    - name: Ensure ssh port is open
-      wait_for:
-        port: 22
-        delay: 10
-        timeout: 300
-        #search: OpenSSH
-        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname)}}'
-      vars:
-        ansible_connection: local
 
 - name: Install Docker and docker python module
   hosts: all
@@ -23,7 +10,7 @@
         name: docker
         update_cache: yes
         state: present
-    - name: install docker python modlu
+    - name: install docker python module
       pip:
         name:
          - docker
@@ -41,10 +28,12 @@
 - name: Start docker
   hosts: docker_server_aws
   become: yes
+  become_user: root
   tasks:
     - name: Start docker daemon
       systemd:
         name: docker
+        enabled: yes
         state: started
 
 - name: add ec2-user to docker group

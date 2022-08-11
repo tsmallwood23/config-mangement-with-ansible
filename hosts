@@ -1,9 +1,9 @@
-
-
 [docker_server_aws]
-3.101.42.221
+54.176.92.150
 
 [docker_server_aws:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 ansible_user=ec2-user
+
+
 
