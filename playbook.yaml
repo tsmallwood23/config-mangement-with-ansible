@@ -1,19 +1,15 @@
 ---
 - name: Configure nginx web server
-  #must be a group name. can't be individual
   hosts: webservers
   tasks:
-  #names are arbitrary but highly recommended
   - name: install nginx server
     apt:
       name: nginx
       state: absent
-    #to uninstall you can do state: absent
   - name: start nginx
     service:
       name: nginx
       state: stopped
-    #state can be stopped
 
 
 
