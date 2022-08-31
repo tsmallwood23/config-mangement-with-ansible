@@ -1,5 +1,5 @@
 ---
-- name: install node and npm
+- name: Install Node and NPM
   hosts: webservers
   tasks:
     - name: update apt cache
@@ -13,7 +13,7 @@
          - nodejs
          - npm
 
-- name: create user for deploying and running node app
+- name: Create user for deploying and running Node application
   hosts: webservers
   tasks:
     - name: create linux user
@@ -25,7 +25,7 @@
     - debug: msg={{user_creation_results}}
 
 
-- name: Deploy nodejs app
+- name: Deploy NodeJS app
   hosts: webservers
   become: True
   become_user: tanner-nodejs
