@@ -1,3 +1,3 @@
-# module15-ansible
+Practice using Ansible as a configuration management tool.
 
-Simple Ansible playbooks to deploy a NGINX webserver and 
+I used Ansible playbooks to deploy a NGINX webserver, 
